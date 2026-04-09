@@ -21,7 +21,11 @@
             align-items: center;
             min-height: 100vh;
         }
-        .app-container { max-width: 1300px; width: 100%; margin: 0 auto; }
+        .app-container {
+            max-width: 1300px;
+            width: 100%;
+            margin: 0 auto;
+        }
         .poster {
             background: #ffffffcc;
             backdrop-filter: blur(3px);
@@ -30,11 +34,28 @@
             box-shadow: 0 25px 45px -12px rgba(0,0,0,0.3);
             border: 1px solid rgba(255,255,255,0.5);
         }
-        .poster-header { text-align: center; margin-bottom: 1.5rem; }
-        .poster-header h1 { font-size: 2.2rem; background: linear-gradient(135deg, #1e3c72, #2a5298); -webkit-background-clip: text; background-clip: text; color: transparent; }
-        .poster-header p { color: #2c3e66; margin-top: 6px; }
-        .landing { position: relative; }
-        .landing.hidden { display: none; }
+        .poster-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .poster-header h1 {
+            font-size: 2.2rem;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .poster-header p {
+            color: #2c3e66;
+            margin-top: 6px;
+        }
+        .landing {
+            position: relative;
+        }
+        .landing.hidden {
+            display: none;
+        }
+        /* Десктопное расположение (абсолютное) */
         .car-map {
             position: relative;
             min-height: 720px;
@@ -52,7 +73,12 @@
             border: 3px solid #2a5298;
             z-index: 10;
         }
-        .car-center img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .car-center img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
         .vector-marker {
             position: absolute;
             width: 170px;
@@ -68,9 +94,27 @@
             transition: transform 0.2s;
             cursor: pointer;
         }
-        .vector-marker:hover { transform: scale(1.02); border-color: #ff8c42; }
-        .marker-title { font-weight: 700; font-size: 0.8rem; margin-bottom: 6px; display: flex; align-items: center; justify-content: center; gap: 5px; }
-        .qr-container { background: white; border-radius: 14px; padding: 5px; display: inline-block; margin: 4px auto; cursor: pointer; }
+        .vector-marker:hover {
+            transform: scale(1.02);
+            border-color: #ff8c42;
+        }
+        .marker-title {
+            font-weight: 700;
+            font-size: 0.8rem;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+        .qr-container {
+            background: white;
+            border-radius: 14px;
+            padding: 5px;
+            display: inline-block;
+            margin: 4px auto;
+            cursor: pointer;
+        }
         .connector-line {
             position: absolute;
             background: rgba(42, 82, 152, 0.6);
@@ -87,7 +131,9 @@
             box-shadow: 0 20px 30px -10px rgba(0,0,0,0.15);
             animation: fadeIn 0.3s;
         }
-        .info-page.hidden { display: none; }
+        .info-page.hidden {
+            display: none;
+        }
         .info-header {
             display: flex;
             justify-content: space-between;
@@ -107,21 +153,119 @@
             cursor: pointer;
             transition: 0.2s;
         }
-        .back-btn:hover { background: #ff8c42; color: #1e3c72; }
-        .vector-detail { display: flex; flex-wrap: wrap; gap: 2rem; }
-        .detail-image { flex: 1; min-width: 260px; }
-        .detail-image img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 32px; border: 2px dashed #2a5298; }
-        .detail-text { flex: 2; background: #f8faff; padding: 1.5rem; border-radius: 32px; line-height: 1.5; }
-        .detail-text h3 { margin: 1rem 0 0.5rem; color: #1e4663; }
-        .real-cases, .protection-list { background: #e9eef5; padding: 1rem 1.5rem; border-radius: 24px; margin: 1rem 0; }
-        footer { text-align: center; margin-top: 1.5rem; font-size: 0.7rem; color: #4a627a; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        @media (max-width: 900px) { .car-center { width: 180px; height: 180px; } .vector-marker { width: 150px; } .poster-header h1 { font-size: 1.6rem; } }
+        .back-btn:hover {
+            background: #ff8c42;
+            color: #1e3c72;
+        }
+        .vector-detail {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        .detail-image {
+            flex: 1;
+            min-width: 260px;
+        }
+        .detail-image img {
+            width: 100%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            border-radius: 32px;
+            border: 2px dashed #2a5298;
+        }
+        .detail-text {
+            flex: 2;
+            background: #f8faff;
+            padding: 1.5rem;
+            border-radius: 32px;
+            line-height: 1.5;
+        }
+        .detail-text h3 {
+            margin: 1rem 0 0.5rem;
+            color: #1e4663;
+        }
+        .real-cases, .protection-list {
+            background: #e9eef5;
+            padding: 1rem 1.5rem;
+            border-radius: 24px;
+            margin: 1rem 0;
+        }
+        footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.7rem;
+            color: #4a627a;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ========= МОБИЛЬНАЯ АДАПТАЦИЯ ========= */
         @media (max-width: 700px) {
-            .car-map { min-height: auto; flex-direction: column; }
-            .car-center { margin-bottom: 30px; }
-            .vector-marker { position: static; margin: 12px auto; width: 200px; }
-            .connector-line { display: none; }
+            .poster {
+                padding: 1rem;
+            }
+            .poster-header h1 {
+                font-size: 1.4rem;
+            }
+            .poster-header p {
+                font-size: 0.85rem;
+            }
+            /* Переключаемся на грид-расположение */
+            .car-map {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 14px;
+                min-height: auto;
+                position: relative;
+            }
+            .car-center {
+                grid-column: span 2;
+                width: 160px;
+                height: 160px;
+                justify-self: center;
+                margin-bottom: 0.5rem;
+            }
+            /* Убираем абсолютное позиционирование у маркеров */
+            .vector-marker {
+                position: static !important;
+                width: auto;
+                margin: 0;
+                padding: 14px 8px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .marker-title {
+                font-size: 0.9rem;
+                gap: 8px;
+                white-space: normal;
+                word-break: break-word;
+            }
+            .qr-container {
+                margin: 8px auto 0;
+                transform: scale(1.1);
+            }
+            .qr-container canvas, .qr-container img {
+                width: 70px !important;
+                height: 70px !important;
+            }
+            .connector-line {
+                display: none;
+            }
+        }
+
+        /* Очень узкие экраны (ширина < 480px) – одна колонка */
+        @media (max-width: 480px) {
+            .car-map {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            .car-center {
+                grid-column: span 1;
+            }
         }
     </style>
 </head>
@@ -130,12 +274,11 @@
     <div class="poster">
         <div class="poster-header">
             <h1><i class="fas fa-shield-virus"></i> Кибербезопасность современного автомобиля</h1>
-            <p>Нажмите на QR-код любого вектора → получите подробную инструкцию по защите и реальные кейсы</p>
+            <p>Нажмите на любой блок → получите подробную инструкцию по защите и реальные кейсы</p>
         </div>
         <div id="landing" class="landing">
             <div class="car-map" id="carMap">
                 <div class="car-center" id="carCenter">
-                    <!-- ЗАМЕНИТЕ ССЫЛКУ НА ВАШЕ ЦЕНТРАЛЬНОЕ ФОТО -->
                     <img id="carImage" src="https://i0.wp.com/art-grea.ru/wp-content/uploads/2020/11/izobrazhenie-legkovogo-avtomobilya-sverhu.jpg?resize=800,600" alt="Автомобиль">
                 </div>
             </div>
@@ -152,9 +295,9 @@
 </div>
 
 <script>
-    // ========= ВСТАВЬТЕ ВАШИ ССЫЛКИ НА КАРТИНКИ В defaultImg =========
-    const DEFAULT_CAR_IMAGE_URL = "https://i0.wp.com/art-grea.ru/wp-content/uploads/2020/11/izobrazhenie-legkovogo-avtomobilya-sverhu.jpg?resize=800,600";   // ЗАМЕНИТЕ
-
+    // ========= ДАННЫЕ И НАСТРОЙКИ =========
+    const DEFAULT_CAR_IMAGE_URL = "https://i0.wp.com/art-grea.ru/wp-content/uploads/2020/11/izobrazhenie-legkovogo-avtomobilya-sverhu.jpg?resize=800,600";
+    
     const vectorsLib = {
         obd: {
             name: "OBD-II диагностический разъем",
@@ -162,7 +305,7 @@
             threats: "• Угон автомобиля за 1–2 минуты без физического взлома.\n• Отключение систем активной безопасности (ABS, ESP) на ходу.\n• Подмена показаний одометра (скрутка пробега).\n• Блокировка двигателя или тормозов на скорости.\n• Снятие данных с CAN-шины для клонирования ключей.",
             protection: "• Установите механическую заглушку на OBD-разъем (стоит от 500 руб, продается на маркетплейсах).\n• Перенесите разъем в скрытое место (например, под панель приборов) — это делается в любом автосервисе.\n• Используйте CAN-фильтр (блокирует подозрительные сообщения, сохраняет штатные).\n• Регулярно осматривайте разъем на наличие посторонних устройств (особенно после посещения СТО).\n• Отключайте внешние Bluetooth/Wi-Fi адаптеры от OBD, если они вам не нужны.\n• Для премиум-авто установите дополнительный иммобилайзер с собственным CAN-шифрованием.",
             realCases: "• 2024 год, Московская область: серия угонов Kia/Hyundai через OBD-адаптер с перехватом CAN-ключа.\n• 2015 год, Jeep Cherokee: исследователи Miller & Valasek через OBD и CAN отключили тормоза на скорости 110 км/ч (демонстрация для Wired).\n• 2025 год, Германия: угонщики использовали OBD-устройство размером с флешку, которое оставляли в машине и активировали удаленно.",
-            defaultImg: "https://www.autostudio.ru/images/46967.jpg"   // ЗАМЕНИТЕ
+            defaultImg: "https://www.autostudio.ru/images/46967.jpg"
         },
         bluetooth: {
             name: "Bluetooth / Wi-Fi атаки",
@@ -170,7 +313,7 @@
             threats: "• Удаленное управление климат-контролем, аудиосистемой, навигацией.\n• Вывод на экран ложных сообщений или вредоносного ПО.\n• В некоторых автомобилях (при плохой сегментации) — манипуляция тормозами, рулем, двигателем.\n• Кража контактов и истории поездок из телефона, подключенного по Bluetooth.\n• Использование автомобиля как ретранслятора для атак на другие устройства.",
             protection: "• Отключайте Bluetooth и Wi-Fi, когда они не используются (особенно на ночь).\n• Регулярно обновляйте прошивку головного устройства и телематического блока (через дилера или OTA).\n• Не подключайтесь к открытым сетям Wi-Fi на ходу и не вводите пароли в непроверенные точки доступа.\n• Удаляйте неиспользуемые сопряженные устройства из памяти авто.\n• Если автомобиль раздаёт Wi-Fi, используйте сложный пароль и регулярно его меняйте.\n• Рассмотрите установку дополнительного сетевого экрана между мультимедиа и CAN-шиной (доступно у некоторых тюнинг-ателье).",
             realCases: "• 2015: Чарли Миллер и Крис Валасек удаленно взломали Jeep Cherokee через Wi-Fi/модем Uconnect, получив контроль над трансмиссией и тормозами.\n• 2024: Уязвимость BlueBorne нового поколения обнаружена в 12 моделях китайских электромобилей (BYD, XPeng).\n• 2025: Хакеры через Bluetooth вывели на экран Tesla Model 3 рекламу и заблокировали управление мультимедиа до перезагрузки.",
-            defaultImg: "https://i0.wp.com/tsfvintageradios.com/wp-content/uploads/2021/11/BT-WIFI_square.png?w=433&ssl=1"   // ЗАМЕНИТЕ
+            defaultImg: "https://i0.wp.com/tsfvintageradios.com/wp-content/uploads/2021/11/BT-WIFI_square.png?w=433&ssl=1"
         },
         keyless: {
             name: "Keyless Entry — ретрансляционная атака",
@@ -178,7 +321,7 @@
             threats: "• Угон автомобиля без физического взлома и следов взлома.\n• Кража ценных вещей из салона (ноутбуки, сумки).\n• Возможность повторного использования сигнала (клонирование ключа).\n• Уязвимость даже для автомобилей с функцией «спящий ключ», если она отключена.",
             protection: "• Храните ключ в экранирующем чехле (Faraday pouch) — он блокирует все радиосигналы. Цена — 500–1500 руб.\n• Отключайте пассивный доступ на ночь (функция есть в меню многих автомобилей: «пассивный вход», «Keyless off»).\n• Дополнительно установите механический иммобилайзер (например, на педаль тормоза или стартер).\n• Храните ключ в металлической коробке или подальше от входной двери (сигнал ослабевает через стены).\n• Используйте ключ-карту в режиме «глубокого сна» (если предусмотрено производителем).\n• При парковке в сомнительных местах активируйте дополнительную сигнализацию с меткой.",
             realCases: "• 2024 год, Лондон: задержана группировка, угнавшая более 200 автомобилей Range Rover, BMW и Mercedes с помощью ретрансляторов, купленных на AliExpress.\n• 2023 год, Москва: зафиксированы угоны Lexus LX и Toyota Land Cruiser из закрытых коттеджных поселков.\n• 2025 год, исследование ADAC показало, что 70% автомобилей с Keyless 2022–2024 годов уязвимы для ретрансляции.",
-            defaultImg: "https://assets.motorpoint.co.uk/images/content/iStock-1183668518.jpg"   // ЗАМЕНИТЕ
+            defaultImg: "https://assets.motorpoint.co.uk/images/content/iStock-1183668518.jpg"
         },
         telematics: {
             name: "Телематика / облачные сервисы",
@@ -186,7 +329,7 @@
             threats: "• Удалённый угон автомобиля из любой точки мира.\n• Постоянное слежение за местоположением и маршрутами.\n• Отключение охранных систем и штатного иммобилайзера.\n• Кража персональных данных владельца (ФИО, телефон, история поездок).\n• Использование автомобиля как ботнета для DDoS-атак (редко, но теоретически возможно).",
             protection: "• Обязательно включите двухфакторную аутентификацию (2FA) в мобильном приложении производителя.\n• Используйте сложный, уникальный пароль от учётной записи (менеджер паролей).\n• Регулярно проверяйте список устройств, имеющих доступ к автомобилю, и отзывайте незнакомые.\n• Если вы не пользуетесь телематикой (например, не нужен удалённый запуск), отключите модуль через дилера — это снимет риски.\n• Не оставляйте VIN-номер открытым (заклейте плёнкой или паркуйтесь так, чтобы не было видно через стекло).\n• Обновляйте мобильное приложение производителя — в новых версиях часто исправляют API-дыры.",
             realCases: "• 2025 год, Kaspersky: уязвимость в API BYD позволяла управлять тысячами автомобилей через простой скрипт по VIN-номеру. Производитель выпустил экстренный патч.\n• 2024 год, исследователи взломали учётную запись владельца Tesla через фишинг и угнали автомобиль удалённо (отключили слежение и открыли двери).\n• 2023 год, Volkswagen: уязвимость в сервисе Car-Net давала доступ к данным геолокации 800 000 автомобилей.",
-            defaultImg: "https://autoburum.com/files/images/blog/0/361v171b35fa.png"   // ЗАМЕНИТЕ
+            defaultImg: "https://autoburum.com/files/images/blog/0/361v171b35fa.png"
         },
         usb: {
             name: "USB-порты",
@@ -194,7 +337,7 @@
             threats: "• Компрометация головного устройства (внедрение вредоносного ПО).\n• Потенциальный доступ к CAN-шине, если мультимедиа плохо изолировано.\n• Кража данных с USB-накопителей, которые вставляли другие пользователи.\n• Сброс настроек автомобиля, отключение камер и датчиков.\n• Возможность оставить вредоносное ПО для последующего удалённого доступа.",
             protection: "• Никогда не вставляйте незнакомые USB-накопители в автомобиль.\n• Отключите функцию автоматического воспроизведения медиа (автозапуск) в настройках головного устройства.\n• Используйте только свои флешки, отформатированные в безопасной среде (например, в Linux).\n• Регулярно обновляйте прошивку мультимедийной системы.\n• Заклейте неиспользуемые USB-порты (особенно в общественных автомобилях, такси).\n• Если вы заряжаете телефон через USB, используйте зарядный кабель без передачи данных (только питание).",
             realCases: "• 2024 год, хакеры на конференции DEF CON показали атаку на Ford Sync: специальный MP3-файл вызывал выполнение кода и открывал доступ к CAN.\n• 2025 год, владелец Tesla заметил, что после подключения флешки с музыкой с интернет-форума навигация перестала работать — оказалось, файл содержал скрытый скрипт.\n• 2023 год, в США зафиксирован случай, когда злоумышленник оставил на парковке USB-флешку с логотипом «зарплатная ведомость» — сотрудник вставил её в автомобиль компании, и был украден файл с данными.",
-            defaultImg: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1cb0lnlMRDdqhaCXgIg6ovW78XgWnxToL4w&s"   // ЗАМЕНИТЕ
+            defaultImg: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1cb0lnlMRDdqhaCXgIg6ovW78XgWnxToL4w&s"
         },
         ota: {
             name: "OTA-обновления (Over-The-Air)",
@@ -202,7 +345,7 @@
             threats: "• Массовое заражение тысяч автомобилей одним вредоносным обновлением.\n• Удалённое управление критическими системами (тормоза, руль, двигатель).\n• Вывод автомобилей из строя (bricking) — превращение в «кирпич».\n• Установка бэкдора для долгосрочного контроля.\n• Кража личных данных и ключей шифрования из памяти блока.",
             protection: "• Устанавливайте обновления только через официальные каналы (приложение производителя, дилерский центр).\n• Не используйте неофициальные точки доступа Wi-Fi для скачивания OTA.\n• Следите за новостями об уязвимостях вашего бренда (форумы, рассылки).\n• Если автомобиль давно не получал обновлений, обратитесь к дилеру для ручной проверки.\n• В некоторых автомобилях можно отключить автоматические OTA (лучше делать это вручную после проверки репутации обновления).\n• Требуйте от производителя публикации хешей обновлений для верификации.",
             realCases: "• 2024 год, хакеры взломали сервер OTA небольшого европейского бренда (защита была на уровне простого пароля) и отправили фальшивое обновление на 1200 автомобилей, заблокировав двигатели. Производитель выплатил компенсации.\n• 2025 год, исследователи нашли уязвимость в механизме подписей Tesla: можно было подменить пакет, если перехватить трафик на этапе скачивания (уязвимость исправлена).\n• 2023 год, китайский стартап NIO отозвал 500 электромобилей после попытки внедрения бэкдора через OTA с поддельного сервера.",
-            defaultImg: "https://voltcars.info/wp-content/uploads/2025/05/OTA-%D0%BE%D0%B1%D0%BD%D0%BE%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5-Over-the-Air-1024x683.webp"   // ЗАМЕНИТЕ
+            defaultImg: "https://voltcars.info/wp-content/uploads/2025/05/OTA-%D0%BE%D0%B1%D0%BD%D0%BE%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5-Over-the-Air-1024x683.webp"
         },
         v2x: {
             name: "V2X (связь с инфраструктурой)",
@@ -210,7 +353,7 @@
             threats: "• Создание аварийных ситуаций (ложное экстренное торможение).\n• Сбой автопилота и систем помощи водителю (ADAS).\n• Дорожный хаос (поддельные аварии, заторы).\n• Блокировка движения спецтранспорта (ложное сообщение о ДТП).\n• Манипуляция временем работы светофоров (если автомобиль имеет приоритетный доступ).",
             protection: "• Производители внедряют криптографическую аутентификацию (стандарт IEEE 1609.2) — требуйте от автопроизводителей её наличия.\n• Водителям пока рекомендуется следить за обновлениями прошивок, связанных с V2X.\n• При возможности отключайте V2X в меню автомобиля, если вы не пользуетесь автопилотом в плотном трафике.\n• Будущие стандарты будут включать системы обнаружения аномалий (IDS для V2X).\n• Для городов и инфраструктуры — обязательная сертификация V2X-устройств и ротация ключей.",
             realCases: "• 2024 год, исследователи из Мичиганского университета отправили ложное сообщение V2V на автомобиль-амфибию, заставив его экстренно затормозить с 80 км/ч до 0 на пустой трассе.\n• 2025 год, в Нидерландах зафиксирована атака на светофоры через поддельные V2I-сообщения: автомобили получали сигнал «зелёный», когда на самом деле горел красный (тестовый полигон).\n• 2023 год, Tesla отключила функцию V2X в Европе из-за обнаруженных уязвимостей в стандарте.",
-            defaultImg: "https://rosacademtrans.ru/wp-content/uploads/2021/09/10-1.jpg"   // ЗАМЕНИТЕ
+            defaultImg: "https://rosacademtrans.ru/wp-content/uploads/2021/09/10-1.jpg"
         },
         can: {
             name: "CAN-шина (инъекция команд)",
@@ -218,7 +361,7 @@
             threats: "• Полная потеря управления: отказ тормозов, неконтролируемое ускорение, поворот руля.\n• Ложное срабатывание подушек безопасности (опасно для жизни).\n• Отключение ABS, ESP, ADAS на ходу.\n• Блокировка двигателя или коробки передач.\n• Маскировка под штатные блоки (долговременное присутствие).",
             protection: "• Использование Security Gateway (шлюз с фильтрацией) — он пропускает только сообщения от доверенных блоков.\n• Применение протокола SecOC (Secure On-Board Communication) — аутентификация CAN-сообщений с помощью MAC-кодов.\n• Установка CAN-фильтров после покупки (дополнительное устройство, блокирующее подозрительные ID).\n• Регулярные проверки у дилера на наличие несанкционированных устройств в сети.\n• Ограничение физического доступа к OBD (см. вектор OBD).\n• Для современных автомобилей — выбор моделей, соответствующих ISO/SAE 21434.",
             realCases: "• Miller & Valasek (2015) – удалённое отключение двигателя и блокировка тормозов Jeep Cherokee на шоссе. После этого Fiat Chrysler отозвал 1.4 млн автомобилей.\n• 2023 год, исследователи нашли уязвимость в CAN-шлюзе Toyota: через подмену блока управления кузовом можно было отключить подушки.\n• 2025 год, на конференции Black Hat показана атака на CAN через подделку сообщений ABS, заставляющая автомобиль вращаться на месте.",
-            defaultImg: "https://s0.rbk.ru/v6_top_pics/resized/800xH/media/img/4/23/347313464836234.webp"   // ЗАМЕНИТЕ
+            defaultImg: "https://s0.rbk.ru/v6_top_pics/resized/800xH/media/img/4/23/347313464836234.webp"
         }
     };
 
@@ -238,7 +381,6 @@
     const MARGIN = 55;
     const HALF_MARKER = 85;
 
-    // Устанавливаем центральное фото
     document.getElementById("carImage").src = DEFAULT_CAR_IMAGE_URL;
 
     function generateQR(key, containerId) {
@@ -250,6 +392,11 @@
     }
 
     function positionMarkers() {
+        // Только для десктопа (ширина > 700px)
+        if (window.innerWidth <= 700) {
+            // На мобильных маркеры не позиционируем абсолютно
+            return;
+        }
         const map = document.getElementById("carMap");
         const centerRect = document.getElementById("carCenter").getBoundingClientRect();
         const mapRect = map.getBoundingClientRect();
@@ -300,6 +447,11 @@
                 <div class="marker-title"><i class="fas fa-bug"></i> ${lib.name}</div>
                 <div class="qr-container" data-qrkey="${key}"><div id="qr-${key}"></div></div>
             `;
+            // Клик по всему маркеру (кроме QR) открывает информацию
+            marker.addEventListener("click", (e) => {
+                if (e.target.closest('.qr-container')) return;
+                showInfoPage(key);
+            });
             map.appendChild(marker);
             generateQR(key, `qr-${key}`);
             const line = document.createElement("div");
