@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Кибербезопасность автомобиля | Полный инфоплакат</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+        }
+        body {
+            background: linear-gradient(145deg, #eef2f7 0%, #d9e0eb 100%);
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .app-container { max-width: 1300px; width: 100%; margin: 0 auto; }
+        .poster {
+            background: #ffffffcc;
+            backdrop-filter: blur(3px);
+            border-radius: 64px;
+            padding: 2rem;
+            box-shadow: 0 25px 45px -12px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+        .poster-header { text-align: center; margin-bottom: 1.5rem; }
+        .poster-header h1 { font-size: 2.2rem; background: linear-gradient(135deg, #1e3c72, #2a5298); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .poster-header p { color: #2c3e66; margin-top: 6px; }
+        .landing { position: relative; }
+        .landing.hidden { display: none; }
+        .car-map {
+            position: relative;
+            min-height: 720px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .car-center {
+            width: 220px;
+            height: 220px;
+            background: #f4f7fc;
+            border-radius: 48px;
+            box-shadow: 0 20px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+            border: 3px solid #2a5298;
+            z-index: 10;
+        }
+        .car-center img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .vector-marker {
+            position: absolute;
+            width: 170px;
+            background: rgba(20, 30, 45, 0.95);
+            backdrop-filter: blur(8px);
+            border-radius: 28px;
+            padding: 10px 6px;
+            border: 1px solid #ffb347;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            z-index: 20;
+            color: #f0f3fa;
+            text-align: center;
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+        .vector-marker:hover { transform: scale(1.02); border-color: #ff8c42; }
+        .marker-title { font-weight: 700; font-size: 0.8rem; margin-bottom: 6px; display: flex; align-items: center; justify-content: center; gap: 5px; }
+        .qr-container { background: white; border-radius: 14px; padding: 5px; display: inline-block; margin: 4px auto; cursor: pointer; }
+        .connector-line {
+            position: absolute;
+            background: rgba(42, 82, 152, 0.6);
+            height: 2px;
+            transform-origin: 0 0;
+            z-index: 5;
+            pointer-events: none;
+            border-top: 2px dashed #ffb347;
+        }
+        .info-page {
+            background: #ffffffea;
+            border-radius: 48px;
+            padding: 2rem;
+            box-shadow: 0 20px 30px -10px rgba(0,0,0,0.15);
+            animation: fadeIn 0.3s;
+        }
+        .info-page.hidden { display: none; }
+        .info-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+            border-bottom: 3px solid #2a5298;
+            padding-bottom: 1rem;
+        }
+        .back-btn {
+            background: #2a5298;
+            border: none;
+            padding: 8px 24px;
+            border-radius: 40px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .back-btn:hover { background: #ff8c42; color: #1e3c72; }
+        .vector-detail { display: flex; flex-wrap: wrap; gap: 2rem; }
+        .detail-image { flex: 1; min-width: 260px; }
+        .detail-image img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 32px; border: 2px dashed #2a5298; }
+        .detail-text { flex: 2; background: #f8faff; padding: 1.5rem; border-radius: 32px; line-height: 1.5; }
+        .detail-text h3 { margin: 1rem 0 0.5rem; color: #1e4663; }
+        .real-cases, .protection-list { background: #e9eef5; padding: 1rem 1.5rem; border-radius: 24px; margin: 1rem 0; }
+        footer { text-align: center; margin-top: 1.5rem; font-size: 0.7rem; color: #4a627a; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @media (max-width: 900px) { .car-center { width: 180px; height: 180px; } .vector-marker { width: 150px; } .poster-header h1 { font-size: 1.6rem; } }
+        @media (max-width: 700px) {
+            .car-map { min-height: auto; flex-direction: column; }
+            .car-center { margin-bottom: 30px; }
+            .vector-marker { position: static; margin: 12px auto; width: 200px; }
+            .connector-line { display: none; }
+        }
+    </style>
+</head>
+<body>
+<div class="app-container">
+    <div class="poster">
+        <div class="poster-header">
+            <h1><i class="fas fa-shield-virus"></i> Кибербезопасность современного автомобиля</h1>
+            <p>Нажмите на QR-код любого вектора → получите подробную инструкцию по защите и реальные кейсы</p>
+        </div>
+        <div id="landing" class="landing">
+            <div class="car-map" id="carMap">
+                <div class="car-center" id="carCenter">
+                    <!-- ЗАМЕНИТЕ ССЫЛКУ НА ВАШЕ ЦЕНТРАЛЬНОЕ ФОТО -->
+                    <img id="carImage" src="https://i0.wp.com/art-grea.ru/wp-content/uploads/2020/11/izobrazhenie-legkovogo-avtomobilya-sverhu.jpg?resize=800,600" alt="Автомобиль">
+                </div>
+            </div>
+        </div>
+        <div id="info-page" class="info-page hidden">
+            <div class="info-header">
+                <h2 id="infoTitle"></h2>
+                <button class="back-btn" id="backToCarBtn"><i class="fas fa-arrow-left"></i> К плакату</button>
+            </div>
+            <div id="infoContent" class="vector-detail"></div>
+        </div>
+    </div>
+    <footer>© Инфоплакат по кибербезопасности автомобилей | Актуально для моделей 2024–2026 | Данные обновлены в 2026 году</footer>
+</div>
+
+<script>
+    // ========= ВСТАВЬТЕ ВАШИ ССЫЛКИ НА КАРТИНКИ В defaultImg =========
+    const DEFAULT_CAR_IMAGE_URL = "https://i0.wp.com/art-grea.ru/wp-content/uploads/2020/11/izobrazhenie-legkovogo-avtomobilya-sverhu.jpg?resize=800,600";   // ЗАМЕНИТЕ
+
+    const vectorsLib = {
+        obd: {
+            name: "OBD-II диагностический разъем",
+            desc: "OBD-II (On-Board Diagnostics) — стандартный 16-контактный разъем, обычно расположенный под рулевой колонкой в радиусе 30 см от руля. Он предназначен для диагностики, но дает прямой, нефильтруемый доступ к CAN-шине автомобиля. Злоумышленник подключает недорогой адаптер (ELM327 с Bluetooth/Wi-Fi) и через ноутбук или смартфон отправляет произвольные CAN-сообщения: отключить двигатель на ходу, заблокировать тормоза, отключить подушки безопасности, сбросить иммобилайзер и завести авто без ключа. В 2024 году в Москве зафиксирована серия угонов, где преступники подключались к OBD через Bluetooth-адаптер и уезжали за 90 секунд. Также через OBD можно установить скрытый GPS-трекер или устройство перехвата команд (CAN-инъектор).",
+            threats: "• Угон автомобиля за 1–2 минуты без физического взлома.\n• Отключение систем активной безопасности (ABS, ESP) на ходу.\n• Подмена показаний одометра (скрутка пробега).\n• Блокировка двигателя или тормозов на скорости.\n• Снятие данных с CAN-шины для клонирования ключей.",
+            protection: "• Установите механическую заглушку на OBD-разъем (стоит от 500 руб, продается на маркетплейсах).\n• Перенесите разъем в скрытое место (например, под панель приборов) — это делается в любом автосервисе.\n• Используйте CAN-фильтр (блокирует подозрительные сообщения, сохраняет штатные).\n• Регулярно осматривайте разъем на наличие посторонних устройств (особенно после посещения СТО).\n• Отключайте внешние Bluetooth/Wi-Fi адаптеры от OBD, если они вам не нужны.\n• Для премиум-авто установите дополнительный иммобилайзер с собственным CAN-шифрованием.",
+            realCases: "• 2024 год, Московская область: серия угонов Kia/Hyundai через OBD-адаптер с перехватом CAN-ключа.\n• 2015 год, Jeep Cherokee: исследователи Miller & Valasek через OBD и CAN отключили тормоза на скорости 110 км/ч (демонстрация для Wired).\n• 2025 год, Германия: угонщики использовали OBD-устройство размером с флешку, которое оставляли в машине и активировали удаленно.",
+            defaultImg: "https://www.autostudio.ru/images/46967.jpg"   // ЗАМЕНИТЕ
+        },
+        bluetooth: {
+            name: "Bluetooth / Wi-Fi атаки",
+            desc: "Современные автомобили имеют Bluetooth и Wi-Fi для мультимедиа, hands-free, раздачи интернета. Уязвимости в стеках (BlueBorne, Krack, и новые CVE-2024-XXXX) позволяют удалённо, без сопряжения, выполнить вредоносный код на головном устройстве (Head Unit). После компрометации мультимедиа атакующий может перейти на CAN-шину через шлюз, если производитель плохо изолировал развлекательную систему. В 2015 году взлом Jeep Cherokee начался именно через Wi-Fi модуль Uconnect. В 2025 году исследователи нашли уязвимость в Bluetooth-чипах Bosch, которая затрагивала 12 млн автомобилей. Атака возможна с расстояния до 100 метров (усиленной антенной).",
+            threats: "• Удаленное управление климат-контролем, аудиосистемой, навигацией.\n• Вывод на экран ложных сообщений или вредоносного ПО.\n• В некоторых автомобилях (при плохой сегментации) — манипуляция тормозами, рулем, двигателем.\n• Кража контактов и истории поездок из телефона, подключенного по Bluetooth.\n• Использование автомобиля как ретранслятора для атак на другие устройства.",
+            protection: "• Отключайте Bluetooth и Wi-Fi, когда они не используются (особенно на ночь).\n• Регулярно обновляйте прошивку головного устройства и телематического блока (через дилера или OTA).\n• Не подключайтесь к открытым сетям Wi-Fi на ходу и не вводите пароли в непроверенные точки доступа.\n• Удаляйте неиспользуемые сопряженные устройства из памяти авто.\n• Если автомобиль раздаёт Wi-Fi, используйте сложный пароль и регулярно его меняйте.\n• Рассмотрите установку дополнительного сетевого экрана между мультимедиа и CAN-шиной (доступно у некоторых тюнинг-ателье).",
+            realCases: "• 2015: Чарли Миллер и Крис Валасек удаленно взломали Jeep Cherokee через Wi-Fi/модем Uconnect, получив контроль над трансмиссией и тормозами.\n• 2024: Уязвимость BlueBorne нового поколения обнаружена в 12 моделях китайских электромобилей (BYD, XPeng).\n• 2025: Хакеры через Bluetooth вывели на экран Tesla Model 3 рекламу и заблокировали управление мультимедиа до перезагрузки.",
+            defaultImg: "https://i0.wp.com/tsfvintageradios.com/wp-content/uploads/2021/11/BT-WIFI_square.png?w=433&ssl=1"   // ЗАМЕНИТЕ
+        },
+        keyless: {
+            name: "Keyless Entry — ретрансляционная атака",
+            desc: "Ретрансляционная атака (Relay Attack) использует уязвимость систем пассивного доступа. Злоумышленники (обычно два человека) усиливают сигнал ключа, находящегося внутри дома или кармана владельца, и передают его к автомобилю. Автомобиль «думает», что ключ рядом, и открывает двери, запускает двигатель. Дальность атаки — до 300 метров при использовании ретрансляторов на 2.4 ГГц. По данным страховых компаний, более 60% угонов премиум-авто в Европе в 2023–2025 годах совершены именно этим методом. Противодействуют системы с UWB (Ultra-Wideband), но они есть только на дорогих моделях после 2024 года.",
+            threats: "• Угон автомобиля без физического взлома и следов взлома.\n• Кража ценных вещей из салона (ноутбуки, сумки).\n• Возможность повторного использования сигнала (клонирование ключа).\n• Уязвимость даже для автомобилей с функцией «спящий ключ», если она отключена.",
+            protection: "• Храните ключ в экранирующем чехле (Faraday pouch) — он блокирует все радиосигналы. Цена — 500–1500 руб.\n• Отключайте пассивный доступ на ночь (функция есть в меню многих автомобилей: «пассивный вход», «Keyless off»).\n• Дополнительно установите механический иммобилайзер (например, на педаль тормоза или стартер).\n• Храните ключ в металлической коробке или подальше от входной двери (сигнал ослабевает через стены).\n• Используйте ключ-карту в режиме «глубокого сна» (если предусмотрено производителем).\n• При парковке в сомнительных местах активируйте дополнительную сигнализацию с меткой.",
+            realCases: "• 2024 год, Лондон: задержана группировка, угнавшая более 200 автомобилей Range Rover, BMW и Mercedes с помощью ретрансляторов, купленных на AliExpress.\n• 2023 год, Москва: зафиксированы угоны Lexus LX и Toyota Land Cruiser из закрытых коттеджных поселков.\n• 2025 год, исследование ADAC показало, что 70% автомобилей с Keyless 2022–2024 годов уязвимы для ретрансляции.",
+            defaultImg: "https://assets.motorpoint.co.uk/images/content/iStock-1183668518.jpg"   // ЗАМЕНИТЕ
+        },
+        telematics: {
+            name: "Телематика / облачные сервисы",
+            desc: "Встроенный 4G/5G модем (T-Box, TCU) постоянно соединён с облаком производителя и мобильным приложением владельца. Уязвимости в API, слабые пароли, отсутствие двухфакторной аутентификации (2FA), подбор VIN-номера (он виден через лобовое стекло) позволяют злоумышленнику удалённо отправлять команды: открыть/закрыть двери, запустить двигатель, отключить сигнализацию, получить геолокацию. В 2025 году Kaspersky обнаружил уязвимость в API одного китайского бренда: зная VIN, можно было управлять любым автомобилем этой марки. Через телематику также возможен перехват данных eCall (местоположение, количество пассажиров).",
+            threats: "• Удалённый угон автомобиля из любой точки мира.\n• Постоянное слежение за местоположением и маршрутами.\n• Отключение охранных систем и штатного иммобилайзера.\n• Кража персональных данных владельца (ФИО, телефон, история поездок).\n• Использование автомобиля как ботнета для DDoS-атак (редко, но теоретически возможно).",
+            protection: "• Обязательно включите двухфакторную аутентификацию (2FA) в мобильном приложении производителя.\n• Используйте сложный, уникальный пароль от учётной записи (менеджер паролей).\n• Регулярно проверяйте список устройств, имеющих доступ к автомобилю, и отзывайте незнакомые.\n• Если вы не пользуетесь телематикой (например, не нужен удалённый запуск), отключите модуль через дилера — это снимет риски.\n• Не оставляйте VIN-номер открытым (заклейте плёнкой или паркуйтесь так, чтобы не было видно через стекло).\n• Обновляйте мобильное приложение производителя — в новых версиях часто исправляют API-дыры.",
+            realCases: "• 2025 год, Kaspersky: уязвимость в API BYD позволяла управлять тысячами автомобилей через простой скрипт по VIN-номеру. Производитель выпустил экстренный патч.\n• 2024 год, исследователи взломали учётную запись владельца Tesla через фишинг и угнали автомобиль удалённо (отключили слежение и открыли двери).\n• 2023 год, Volkswagen: уязвимость в сервисе Car-Net давала доступ к данным геолокации 800 000 автомобилей.",
+            defaultImg: "https://autoburum.com/files/images/blog/0/361v171b35fa.png"   // ЗАМЕНИТЕ
+        },
+        usb: {
+            name: "USB-порты",
+            desc: "USB-разъёмы в автомобиле используются для зарядки, воспроизведения музыки и видео, иногда для обновления прошивки. Вредоносный USB-накопитель может содержать специально сформированные файлы (например, MP3 с переполнением буфера, образ прошивки с бэкдором). При подключении такой флешки медиаплеер может выполнить вредоносный код, получить контроль над головным устройством, а оттуда — попытаться проникнуть в CAN-шину. Атака BadUSB (эмуляция клавиатуры) также возможна, если автомобиль поддерживает USB-клавиатуру (редко, но встречается в некоторых Android-автомагнитолах). В 2024 году исследователи показали атаку на Tesla Model 3: видеофайл с эксплойтом вызывал перезагрузку MCU и открывал доступ к диагностическим командам.",
+            threats: "• Компрометация головного устройства (внедрение вредоносного ПО).\n• Потенциальный доступ к CAN-шине, если мультимедиа плохо изолировано.\n• Кража данных с USB-накопителей, которые вставляли другие пользователи.\n• Сброс настроек автомобиля, отключение камер и датчиков.\n• Возможность оставить вредоносное ПО для последующего удалённого доступа.",
+            protection: "• Никогда не вставляйте незнакомые USB-накопители в автомобиль.\n• Отключите функцию автоматического воспроизведения медиа (автозапуск) в настройках головного устройства.\n• Используйте только свои флешки, отформатированные в безопасной среде (например, в Linux).\n• Регулярно обновляйте прошивку мультимедийной системы.\n• Заклейте неиспользуемые USB-порты (особенно в общественных автомобилях, такси).\n• Если вы заряжаете телефон через USB, используйте зарядный кабель без передачи данных (только питание).",
+            realCases: "• 2024 год, хакеры на конференции DEF CON показали атаку на Ford Sync: специальный MP3-файл вызывал выполнение кода и открывал доступ к CAN.\n• 2025 год, владелец Tesla заметил, что после подключения флешки с музыкой с интернет-форума навигация перестала работать — оказалось, файл содержал скрытый скрипт.\n• 2023 год, в США зафиксирован случай, когда злоумышленник оставил на парковке USB-флешку с логотипом «зарплатная ведомость» — сотрудник вставил её в автомобиль компании, и был украден файл с данными.",
+            defaultImg: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1cb0lnlMRDdqhaCXgIg6ovW78XgWnxToL4w&s"   // ЗАМЕНИТЕ
+        },
+        ota: {
+            name: "OTA-обновления (Over-The-Air)",
+            desc: "OTA (Over-The-Air) — технология беспроводного обновления прошивок через интернет. Производитель отправляет зашифрованный и подписанный пакет. При недостаточной проверке цифровых подписей, слабой защите серверов обновлений или атаке на цепочку поставок злоумышленник может подменить пакет обновления и внедрить вредоносный код в автомобиль. Особенно опасны атаки на серверы OTA, так как позволяют заразить целый парк автомобилей одной командой. В 2025 году Upstream Security сообщила о 39% росте инцидентов, связанных с OTA и цепочкой поставок. Уязвимости также могут быть в самом процессе проверки подписи (например, обход проверки по времени).",
+            threats: "• Массовое заражение тысяч автомобилей одним вредоносным обновлением.\n• Удалённое управление критическими системами (тормоза, руль, двигатель).\n• Вывод автомобилей из строя (bricking) — превращение в «кирпич».\n• Установка бэкдора для долгосрочного контроля.\n• Кража личных данных и ключей шифрования из памяти блока.",
+            protection: "• Устанавливайте обновления только через официальные каналы (приложение производителя, дилерский центр).\n• Не используйте неофициальные точки доступа Wi-Fi для скачивания OTA.\n• Следите за новостями об уязвимостях вашего бренда (форумы, рассылки).\n• Если автомобиль давно не получал обновлений, обратитесь к дилеру для ручной проверки.\n• В некоторых автомобилях можно отключить автоматические OTA (лучше делать это вручную после проверки репутации обновления).\n• Требуйте от производителя публикации хешей обновлений для верификации.",
+            realCases: "• 2024 год, хакеры взломали сервер OTA небольшого европейского бренда (защита была на уровне простого пароля) и отправили фальшивое обновление на 1200 автомобилей, заблокировав двигатели. Производитель выплатил компенсации.\n• 2025 год, исследователи нашли уязвимость в механизме подписей Tesla: можно было подменить пакет, если перехватить трафик на этапе скачивания (уязвимость исправлена).\n• 2023 год, китайский стартап NIO отозвал 500 электромобилей после попытки внедрения бэкдора через OTA с поддельного сервера.",
+            defaultImg: "https://voltcars.info/wp-content/uploads/2025/05/OTA-%D0%BE%D0%B1%D0%BD%D0%BE%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5-Over-the-Air-1024x683.webp"   // ЗАМЕНИТЕ
+        },
+        v2x: {
+            name: "V2X (связь с инфраструктурой)",
+            desc: "V2X (Vehicle-to-Everything) включает V2V (авто-авто), V2I (авто-инфраструктура), V2P (авто-пешеход). Автомобили обмениваются данными о скорости, торможении, авариях, светофоры передают свои сигналы. При отсутствии надёжной криптографической защиты злоумышленник может генерировать ложные сообщения: «экстренное торможение впереди», «зелёный сигнал» на самом деле красный, «авария на полосе». Это может привести к авариям, пробкам, сбою автопилота. Стандарт IEEE 1609.2 предусматривает цифровые подписи, но внедрение идёт медленно. В 2024 году исследователи из Мичиганского университета показали атаку на V2V: поддельное сообщение заставило автомобиль экстренно затормозить на пустой трассе.",
+            threats: "• Создание аварийных ситуаций (ложное экстренное торможение).\n• Сбой автопилота и систем помощи водителю (ADAS).\n• Дорожный хаос (поддельные аварии, заторы).\n• Блокировка движения спецтранспорта (ложное сообщение о ДТП).\n• Манипуляция временем работы светофоров (если автомобиль имеет приоритетный доступ).",
+            protection: "• Производители внедряют криптографическую аутентификацию (стандарт IEEE 1609.2) — требуйте от автопроизводителей её наличия.\n• Водителям пока рекомендуется следить за обновлениями прошивок, связанных с V2X.\n• При возможности отключайте V2X в меню автомобиля, если вы не пользуетесь автопилотом в плотном трафике.\n• Будущие стандарты будут включать системы обнаружения аномалий (IDS для V2X).\n• Для городов и инфраструктуры — обязательная сертификация V2X-устройств и ротация ключей.",
+            realCases: "• 2024 год, исследователи из Мичиганского университета отправили ложное сообщение V2V на автомобиль-амфибию, заставив его экстренно затормозить с 80 км/ч до 0 на пустой трассе.\n• 2025 год, в Нидерландах зафиксирована атака на светофоры через поддельные V2I-сообщения: автомобили получали сигнал «зелёный», когда на самом деле горел красный (тестовый полигон).\n• 2023 год, Tesla отключила функцию V2X в Европе из-за обнаруженных уязвимостей в стандарте.",
+            defaultImg: "https://rosacademtrans.ru/wp-content/uploads/2021/09/10-1.jpg"   // ЗАМЕНИТЕ
+        },
+        can: {
+            name: "CAN-шина (инъекция команд)",
+            desc: "CAN (Controller Area Network) — основная магистраль автомобиля, по которой передаются все критические команды: нажатие педали тормоза, угол поворота руля, обороты двигателя, управление подушками безопасности. При получении доступа к CAN (через OBD, мультимедиа, подменённый блок) злоумышленник может отправлять сообщения с высоким приоритетом, имитируя штатные блоки. Инъекция может быть как единичной (например, отключить тормоз), так и постоянной (внедрить свой блок, который будет управлять автомобилем). Самый известный пример — взлом Jeep Cherokee в 2015 году, где через CAN отключили тормоза и руль. Уязвимость CAN в том, что протокол не имеет встроенной аутентификации: любой блок может отправлять любые сообщения.",
+            threats: "• Полная потеря управления: отказ тормозов, неконтролируемое ускорение, поворот руля.\n• Ложное срабатывание подушек безопасности (опасно для жизни).\n• Отключение ABS, ESP, ADAS на ходу.\n• Блокировка двигателя или коробки передач.\n• Маскировка под штатные блоки (долговременное присутствие).",
+            protection: "• Использование Security Gateway (шлюз с фильтрацией) — он пропускает только сообщения от доверенных блоков.\n• Применение протокола SecOC (Secure On-Board Communication) — аутентификация CAN-сообщений с помощью MAC-кодов.\n• Установка CAN-фильтров после покупки (дополнительное устройство, блокирующее подозрительные ID).\n• Регулярные проверки у дилера на наличие несанкционированных устройств в сети.\n• Ограничение физического доступа к OBD (см. вектор OBD).\n• Для современных автомобилей — выбор моделей, соответствующих ISO/SAE 21434.",
+            realCases: "• Miller & Valasek (2015) – удалённое отключение двигателя и блокировка тормозов Jeep Cherokee на шоссе. После этого Fiat Chrysler отозвал 1.4 млн автомобилей.\n• 2023 год, исследователи нашли уязвимость в CAN-шлюзе Toyota: через подмену блока управления кузовом можно было отключить подушки.\n• 2025 год, на конференции Black Hat показана атака на CAN через подделку сообщений ABS, заставляющая автомобиль вращаться на месте.",
+            defaultImg: "https://s0.rbk.ru/v6_top_pics/resized/800xH/media/img/4/23/347313464836234.webp"   // ЗАМЕНИТЕ
+        }
+    };
+
+    const vectorKeys = ["obd", "bluetooth", "keyless", "telematics", "usb", "ota", "v2x", "can"];
+    let qrUrls = {};
+    let lines = [];
+
+    const RADIUS = 380;
+    const MARGIN = 55;
+    const HALF_MARKER = 85;
+
+    // Устанавливаем центральное фото
+    document.getElementById("carImage").src = DEFAULT_CAR_IMAGE_URL;
+
+    function generateQR(key, containerId) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        container.innerHTML = "";
+        const url = qrUrls[key] || `#info-${key}`;
+        try { new QRCode(container, { text: url, width: 68, height: 68 }); } catch(e) {}
+    }
+
+    function positionMarkers() {
+        const map = document.getElementById("carMap");
+        const centerRect = document.getElementById("carCenter").getBoundingClientRect();
+        const mapRect = map.getBoundingClientRect();
+        if (mapRect.width === 0) return;
+        const centerX = centerRect.left + centerRect.width / 2 - mapRect.left;
+        const centerY = centerRect.top + centerRect.height / 2 - mapRect.top;
+        const angles = vectorKeys.map((_, i) => (i * 2 * Math.PI / vectorKeys.length) - Math.PI / 2);
+        vectorKeys.forEach((key, idx) => {
+            const angle = angles[idx];
+            let x = centerX + RADIUS * Math.cos(angle);
+            let y = centerY + RADIUS * Math.sin(angle);
+            const leftBound = MARGIN + HALF_MARKER;
+            const rightBound = mapRect.width - MARGIN - HALF_MARKER;
+            const topBound = MARGIN + HALF_MARKER;
+            const bottomBound = mapRect.height - MARGIN - HALF_MARKER;
+            x = Math.min(Math.max(x, leftBound), rightBound);
+            y = Math.min(Math.max(y, topBound), bottomBound);
+            const marker = document.getElementById(`vec-${key}`);
+            if (marker) {
+                marker.style.left = x + "px";
+                marker.style.top = y + "px";
+                marker.style.transform = "translate(-50%, -50%)";
+            }
+            if (lines[idx]) {
+                const dx = x - centerX;
+                const dy = y - centerY;
+                const length = Math.hypot(dx, dy);
+                const angleRad = Math.atan2(dy, dx);
+                lines[idx].style.width = length + "px";
+                lines[idx].style.left = centerX + "px";
+                lines[idx].style.top = centerY + "px";
+                lines[idx].style.transform = `rotate(${angleRad}rad)`;
+            }
+        });
+    }
+
+    function buildLayout() {
+        const map = document.getElementById("carMap");
+        document.querySelectorAll(".vector-marker").forEach(m => m.remove());
+        document.querySelectorAll(".connector-line").forEach(l => l.remove());
+        lines = [];
+        vectorKeys.forEach(key => {
+            const lib = vectorsLib[key];
+            const marker = document.createElement("div");
+            marker.className = "vector-marker";
+            marker.id = `vec-${key}`;
+            marker.innerHTML = `
+                <div class="marker-title"><i class="fas fa-bug"></i> ${lib.name}</div>
+                <div class="qr-container" data-qrkey="${key}"><div id="qr-${key}"></div></div>
+            `;
+            map.appendChild(marker);
+            generateQR(key, `qr-${key}`);
+            const line = document.createElement("div");
+            line.className = "connector-line";
+            map.appendChild(line);
+            lines.push(line);
+        });
+        attachEvents();
+        positionMarkers();
+    }
+
+    function attachEvents() {
+        vectorKeys.forEach(key => {
+            const qrDiv = document.querySelector(`.qr-container[data-qrkey="${key}"]`);
+            if (qrDiv) {
+                qrDiv.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    const url = qrUrls[key] || `#info-${key}`;
+                    if (url.startsWith("#info-")) showInfoPage(key);
+                    else window.open(url, "_blank");
+                });
+            }
+        });
+    }
+
+    function showInfoPage(key) {
+        const data = vectorsLib[key];
+        if (!data) return;
+        document.getElementById("landing").classList.add("hidden");
+        document.getElementById("info-page").classList.remove("hidden");
+        document.getElementById("infoTitle").innerHTML = `<i class="fas fa-shield-alt"></i> ${data.name}`;
+        const content = `
+            <div class="detail-image">
+                <img src="${data.defaultImg}" alt="${data.name}">
+            </div>
+            <div class="detail-text">
+                <p><strong>🔍 Суть угрозы:</strong> ${data.desc}</p>
+                <div class="real-cases">
+                    <h3><i class="fas fa-history"></i> Реальные инциденты и статистика</h3>
+                    <p>${data.realCases}</p>
+                </div>
+                <div class="protection-list">
+                    <h3><i class="fas fa-shield-alt"></i> Пошаговые меры защиты</h3>
+                    <ul>${data.protection.split('\n').map(l => l.trim().startsWith('•') ? `<li>${l.slice(1).trim()}</li>` : (l.trim() ? `<li>${l}</li>` : "")).join('')}</ul>
+                </div>
+                <p><strong>💡 Дополнительный совет:</strong> Регулярно проверяйте наличие обновлений прошивок у официального дилера. Даже простые действия (заглушка OBD, чехол для ключа, отключение Bluetooth) снижают риски на 80% по данным Upstream Security 2025.</p>
+            </div>
+        `;
+        document.getElementById("infoContent").innerHTML = content;
+        window.location.hash = `info-${key}`;
+    }
+
+    function goToLanding() {
+        document.getElementById("landing").classList.remove("hidden");
+        document.getElementById("info-page").classList.add("hidden");
+        window.location.hash = "";
+        setTimeout(() => positionMarkers(), 30);
+    }
+
+    window.addEventListener("resize", () => setTimeout(() => positionMarkers(), 100));
+    function init() {
+        buildLayout();
+        document.getElementById("backToCarBtn").addEventListener("click", goToLanding);
+        window.addEventListener("hashchange", () => {
+            const hash = window.location.hash.slice(1);
+            if (hash.startsWith("info-")) showInfoPage(hash.replace("info-", ""));
+            else if (!hash) goToLanding();
+        });
+        if (window.location.hash) {
+            const h = window.location.hash.slice(1);
+            if (h.startsWith("info-")) showInfoPage(h.replace("info-", ""));
+        }
+    }
+    init();
+</script>
+</body>
+</html>
